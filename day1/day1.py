@@ -1,16 +1,22 @@
-f = open("input.txt", "r")
-lines = []
-for line in f:
-    lines.append(int(line.strip()))
+import itertools
 
-lines_copy = lines.copy()
-continue_iteration = True
-for line in lines:
-    if continue_iteration:
-        for other_line in lines_copy:
-            lineSum = line + other_line
-            if lineSum == 2020:
-                product = line * other_line
-                print(product)
-                continue_iteration = False
-                break
+f = open("input.txt", "r")
+lines = [int(line.strip()) for line in f.readlines()]
+
+
+def find2020(iterable, size):
+    combos = itertools.combinations(iterable, size)
+    for combo in combos:
+        if sum(combo) == 2020:
+            product = 1
+            for num in combo:
+                product *= num
+            print(product)
+            print(combo)
+
+
+# Part 1
+find2020(lines, 2)
+
+# Part 2
+find2020(lines, 3)
